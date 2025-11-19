@@ -1,3 +1,4 @@
+
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -58,7 +59,7 @@ export default function AgreementPage() {
     if (loading) {
         return (
             <div className="flex min-h-screen items-center justify-center">
-                <p>Loading agreement...</p>
+                <p>Loading your Roommate Agreement...</p>
             </div>
         );
     }
@@ -68,11 +69,11 @@ export default function AgreementPage() {
             <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4 text-center">
                 <Card className="max-w-md">
                     <CardContent className="p-8 space-y-4">
-                        <h1 className="text-2xl font-bold">Agreement Expired</h1>
+                        <h1 className="text-2xl font-bold">Roommate Agreement Link Expired</h1>
                         <p className="text-muted-foreground">
                             This agreement link was valid for 24 hours and has now expired. Please generate a new agreement.
                         </p>
-                        <Button onClick={() => router.push('/')}>Create New Agreement</Button>
+                        <Button onClick={() => router.push('/')}>Create New Roommate Agreement</Button>
                     </CardContent>
                 </Card>
             </div>
@@ -84,11 +85,11 @@ export default function AgreementPage() {
             <div className="flex min-h-screen items-center justify-center">
                  <Card className="max-w-md">
                     <CardContent className="p-8 space-y-4 text-center">
-                        <h1 className="text-2xl font-bold">Agreement Not Found</h1>
+                        <h1 className="text-2xl font-bold">Roommate Agreement Not Found</h1>
                         <p className="text-muted-foreground">
                             The agreement you are looking for could not be found. It may have expired or been removed.
                         </p>
-                        <Button onClick={() => router.push('/')}>Create New Agreement</Button>
+                        <Button onClick={() => router.push('/')}>Create New Roommate Agreement</Button>
                     </CardContent>
                 </Card>
             </div>
@@ -101,7 +102,7 @@ export default function AgreementPage() {
             <main className="flex-1 py-12 px-4 md:px-6">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <div className="flex flex-col sm:flex-row gap-2 justify-between items-center no-print">
-                        <h1 className="text-2xl font-bold font-headline">Your Agreement is Ready</h1>
+                        <h1 className="text-2xl font-bold font-headline">Your Roommate Agreement is Ready</h1>
                         <div className="flex gap-2">
                             <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Share</Button>
                             <Button onClick={() => window.print()} className="bg-accent hover:bg-accent/90 text-accent-foreground"><Download className="mr-2 h-4 w-4" /> Download PDF</Button>
@@ -111,7 +112,7 @@ export default function AgreementPage() {
                         <AgreementPreview data={agreement} />
                     </div>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 border-t no-print">
-                        <p className="text-sm text-muted-foreground">Was this tool helpful?</p>
+                        <p className="text-sm text-muted-foreground">Was this roommate agreement tool helpful?</p>
                         <div className="flex gap-2">
                             <Button variant="outline" size="icon" onClick={() => toast({ title: "Thanks for your feedback!" })}><ThumbsUp className="h-4 w-4" /></Button>
                             <Button variant="outline" size="icon" onClick={() => toast({ title: "Thanks for your feedback!" })}><ThumbsDown className="h-4 w-4" /></Button>

@@ -1,3 +1,4 @@
+
 import AgreementForm from "@/components/agreement-form";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -11,10 +12,10 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl space-y-4 text-center">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
-                Prevent Roommate Drama — Make Your Expectations Clear
+                Create a Solid Roommate Agreement, Avoid Conflict
               </h1>
               <p className="text-muted-foreground md:text-xl">
-                Free Roommate Agreement Maker. No sign-up required. Split rent, bills, and chores — agree now, avoid fights later.
+                Use our free Roommate Agreement generator to set clear expectations on rent, bills, and chores. A clear contract prevents future problems. No sign-up required.
               </p>
             </div>
           </div>

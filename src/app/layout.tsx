@@ -11,8 +11,8 @@ const ptSans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "RoommateReady - Roommate Agreement Generator",
-  description: "Prevent roommate drama. Create a free, detailed room-sharing agreement to set clear expectations on rent, chores, guests, and more.",
+  title: "Free Roommate Agreement Generator | Create Your Contract",
+  description: "Create a free, custom Roommate Agreement in minutes. Our easy-to-use tool helps you build a contract covering rent, bills, chores, and house rules to prevent disputes.",
 };
 
 export default function RootLayout({

@@ -94,7 +94,7 @@ export default function AgreementForm() {
   return (
     <Card className="max-w-4xl mx-auto shadow-lg">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl">Create Your Agreement</CardTitle>
+        <CardTitle className="font-headline text-2xl">Build Your Roommate Agreement</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -280,7 +280,7 @@ export default function AgreementForm() {
               <AccordionItem value="custom-clauses">
                 <AccordionTrigger className="text-lg font-semibold"><FileText className="mr-2 h-5 w-5 text-primary" />Custom Clauses</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                    <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Your Custom Clauses</FormLabel><FormDescription>Add any additional clauses here.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                    <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Add Your Own Clauses</FormLabel><FormDescription>Add any additional rules or terms to your roommate agreement.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
@@ -291,7 +291,7 @@ export default function AgreementForm() {
             )}
 
             <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" disabled={form.formState.isSubmitting}>
-              {form.formState.isSubmitting ? "Generating..." : "Generate Agreement"}
+              {form.formState.isSubmitting ? "Generating..." : "Generate Roommate Agreement"}
             </Button>
           </form>
         </Form>
@@ -299,5 +299,3 @@ export default function AgreementForm() {
     </Card>
   );
 }
-
-    
