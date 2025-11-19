@@ -15,16 +15,21 @@ export default function AgreementPage() {
     const router = useRouter();
     const { toast } = useToast();
     const [agreement, setAgreement] = useState<AgreementData | null>(null);
+    const [loading, setLoading] = useState(true);
     const [isExpired, setIsExpired] = useState(false);
 
     useEffect(() => {
         const id = params.id as string;
-        if (!id) return;
+        if (!id) {
+            setLoading(false);
+            return;
+        };
         
         // Links are valid for 24 hours (86400000 ms)
         const timeGenerated = parseInt(id, 10);
         if (isNaN(timeGenerated) || (Date.now() - timeGenerated > 86400000)) {
             setIsExpired(true);
+            setLoading(false);
             return;
         }
 
@@ -39,6 +44,7 @@ export default function AgreementPage() {
             console.error("Failed to parse agreement data", error);
             setIsExpired(true);
         }
+        setLoading(false);
     }, [params.id]);
 
     const handleShare = () => {
@@ -48,6 +54,14 @@ export default function AgreementPage() {
             description: "The shareable link has been copied to your clipboard.",
         });
     };
+
+    if (loading) {
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                <p>Loading agreement...</p>
+            </div>
+        );
+    }
 
     if (isExpired) {
         return (
@@ -68,7 +82,15 @@ export default function AgreementPage() {
     if (!agreement) {
         return (
             <div className="flex min-h-screen items-center justify-center">
-                <p>Loading agreement...</p>
+                 <Card className="max-w-md">
+                    <CardContent className="p-8 space-y-4 text-center">
+                        <h1 className="text-2xl font-bold">Agreement Not Found</h1>
+                        <p className="text-muted-foreground">
+                            The agreement you are looking for could not be found. It may have expired or been removed.
+                        </p>
+                        <Button onClick={() => router.push('/')}>Create New Agreement</Button>
+                    </CardContent>
+                </Card>
             </div>
         );
     }
