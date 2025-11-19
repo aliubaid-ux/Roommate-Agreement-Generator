@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -148,13 +149,13 @@ export default function AgreementForm() {
                 <AccordionTrigger className="text-lg font-semibold"><Banknote className="mr-2 h-5 w-5 text-primary" />Financial Terms</AccordionTrigger>
                 <AccordionContent className="space-y-6 pt-4">
                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <FormField control={form.control} name="rent.total" render={({ field }) => ( <FormItem><FormLabel>Total Monthly Rent</FormLabel><FormControl><Input type="number" placeholder="2000" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                      <FormField control={form.control} name="rent.total" render={({ field }) => ( <FormItem><FormLabel>Total Monthly Rent</FormLabel><FormControl><Input type="number" placeholder="2000" {...field} onChange={e => field.onChange(parseFloat(e.target.value))} /></FormControl><FormMessage /></FormItem> )} />
                       <FormField control={form.control} name="rent.paymentMethod" render={({ field }) => ( <FormItem><FormLabel>Payment Method</FormLabel><FormControl><Input placeholder="e.g., Venmo, Zelle" {...field} /></FormControl><FormMessage /></FormItem> )} />
                       <FormField control={form.control} name="rent.dueDate" render={({ field }) => ( <FormItem><FormLabel>Rent Due Date</FormLabel><FormControl><Input placeholder="e.g., 1st of the month" {...field} /></FormControl><FormMessage /></FormItem> )} />
                    </div>
                     <FormField control={form.control} name="latePaymentPolicy" render={({ field }) => ( <FormItem><FormLabel>Late Payment Policy</FormLabel><FormControl><Textarea placeholder="e.g., A fee of $50 will be charged if rent is more than 5 days late." {...field} /></FormControl><FormMessage /></FormItem> )} />
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField control={form.control} name="securityDeposit.total" render={({ field }) => ( <FormItem><FormLabel>Total Security Deposit</FormLabel><FormControl><Input type="number" placeholder="2000" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                    <FormField control={form.control} name="securityDeposit.total" render={({ field }) => ( <FormItem><FormLabel>Total Security Deposit</FormLabel><FormControl><Input type="number" placeholder="2000" {...field} onChange={e => field.onChange(parseFloat(e.target.value))} /></FormControl><FormMessage /></FormItem> )} />
                     <FormField control={form.control} name="securityDeposit.refundConditions" render={({ field }) => ( <FormItem><FormLabel>Deposit Refund Conditions</FormLabel><FormControl><Textarea placeholder="e.g., To be returned within 30 days of move-out, less any costs for damages beyond normal wear and tear." {...field} /></FormControl><FormMessage /></FormItem> )} />
                    </div>
                 </AccordionContent>
@@ -260,7 +261,7 @@ export default function AgreementForm() {
               <AccordionItem value="termination">
                 <AccordionTrigger className="text-lg font-semibold"><LogOut className="mr-2 h-5 w-5 text-primary" />Exit & Termination</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                   <FormField control={form.control} name="terminationNoticePeriod" render={({ field }) => ( <FormItem><FormLabel>Move-out Notice Period (days)</FormLabel><FormControl><Input type="number" placeholder="30" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                   <FormField control={form.control} name="terminationNoticePeriod" render={({ field }) => ( <FormItem><FormLabel>Move-out Notice Period (days)</FormLabel><FormControl><Input type="number" placeholder="30" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10))} /></FormControl><FormMessage /></FormItem> )} />
                    <FormField control={form.control} name="replacementRules" render={({ field }) => ( <FormItem><FormLabel>Replacement Roommate Rules</FormLabel><FormControl><Textarea placeholder="e.g., A departing roommate is responsible for finding a suitable replacement, subject to approval by the remaining roommates and the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
@@ -294,3 +295,4 @@ export default function AgreementForm() {
     </Card>
   );
 }
+

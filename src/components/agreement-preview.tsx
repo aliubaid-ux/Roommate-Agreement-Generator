@@ -1,6 +1,9 @@
+
+'use client';
 import type { AgreementData } from "@/lib/schema";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { useEffect, useState } from "react";
 
 interface AgreementPreviewProps {
   data: AgreementData;
@@ -26,6 +29,11 @@ const Clause: React.FC<{ label: string; value?: string | number | null }> = ({ l
 
 export function AgreementPreview({ data }: AgreementPreviewProps) {
     const roommateNames = data.roommates.map(r => r.name).join(', ');
+    const [signatureDate, setSignatureDate] = useState<string | null>(null);
+
+    useEffect(() => {
+        setSignatureDate(format(new Date(), "MMMM d, yyyy"));
+    }, []);
 
   return (
     <Card className="shadow-lg">
@@ -107,7 +115,7 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
                         </div>
                         <div className="flex-grow border-b border-foreground"></div>
                          <div className="text-center">
-                            <p className="font-semibold">{format(new Date(), "MMMM d, yyyy")}</p>
+                            {signatureDate && <p className="font-semibold">{signatureDate}</p>}
                             <p className="text-xs text-muted-foreground">Date</p>
                         </div>
                     </div>
