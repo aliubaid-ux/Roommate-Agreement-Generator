@@ -4,6 +4,8 @@ import type { AgreementData } from "@/lib/schema";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useEffect, useState } from "react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 interface AgreementPreviewProps {
   data: AgreementData;
@@ -26,14 +28,39 @@ const Clause: React.FC<{ label: string; value?: string | number | null }> = ({ l
   );
 };
 
+type SignaturesState = {
+    [key: string]: { signature: string; date: string | null };
+};
 
 export function AgreementPreview({ data }: AgreementPreviewProps) {
     const roommateNames = data.roommates.map(r => r.name).join(', ');
-    const [signatureDate, setSignatureDate] = useState<string | null>(null);
+    const [signatures, setSignatures] = useState<SignaturesState>({});
 
     useEffect(() => {
-        setSignatureDate(format(new Date(), "MMMM d, yyyy"));
-    }, []);
+        const initialSignatures: SignaturesState = {};
+        data.roommates.forEach(r => {
+            initialSignatures[r.name] = { signature: "", date: null };
+        });
+        setSignatures(initialSignatures);
+    }, [data.roommates]);
+
+    const handleSignatureChange = (name: string, signature: string) => {
+        setSignatures(prev => ({
+            ...prev,
+            [name]: {
+                signature,
+                date: signature ? format(new Date(), "MMMM d, yyyy") : null,
+            }
+        }));
+    };
+    
+    const clearSignatures = () => {
+        const clearedSignatures: SignaturesState = {};
+        data.roommates.forEach(r => {
+            clearedSignatures[r.name] = { signature: "", date: null };
+        });
+        setSignatures(clearedSignatures);
+    };
 
   return (
     <Card className="shadow-lg">
@@ -102,26 +129,61 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
             </Section>
         )}
 
-        <div className="mt-12 pt-6 border-t">
-            <h2 className="text-xl font-bold font-headline mb-4">Signatures</h2>
-            <p className="text-sm text-muted-foreground mb-8">By signing below, the roommates acknowledge that they have read, understood, and agree to the terms of this Agreement.</p>
-            <div className="space-y-8">
+        <div className="mt-12 pt-6 border-t no-print">
+            <div className="flex justify-between items-center mb-8">
+                <h2 className="text-xl font-bold font-headline">E-Signatures</h2>
+                <Button variant="outline" size="sm" onClick={clearSignatures}>Clear Signatures</Button>
+            </div>
+            <p className="text-sm text-muted-foreground mb-6">By typing your name below, you acknowledge that you have read, understood, and agree to the terms of this Agreement. This constitutes a legal and binding electronic signature.</p>
+            <div className="space-y-6">
                 {data.roommates.map(r => (
-                    <div key={r.name} className="flex gap-4 items-end">
-                        <div className="flex-grow border-b border-foreground"></div>
-                        <div className="text-center">
-                            <p className="font-semibold">{r.name}</p>
-                            <p className="text-xs text-muted-foreground">Signature</p>
+                    <div key={r.name} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div className="md:col-span-2">
+                             <label htmlFor={`signature-${r.name}`} className="text-sm font-medium">{r.name}</label>
+                            <Input
+                                id={`signature-${r.name}`}
+                                type="text"
+                                placeholder={`Type '${r.name}' to sign`}
+                                value={signatures[r.name]?.signature || ''}
+                                onChange={(e) => handleSignatureChange(r.name, e.target.value)}
+                                className="mt-1 font-serif text-lg"
+                                disabled={signatures[r.name]?.signature === r.name}
+                            />
                         </div>
-                        <div className="flex-grow border-b border-foreground"></div>
-                         <div className="text-center">
-                            {signatureDate && <p className="font-semibold">{signatureDate}</p>}
-                            <p className="text-xs text-muted-foreground">Date</p>
+                        <div>
+                            <label className="text-sm font-medium">Date</label>
+                            <p className="h-10 border-b mt-1 flex items-center px-3 text-muted-foreground">
+                                {signatures[r.name]?.date || '---'}
+                            </p>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
+
+        <div className="mt-12 pt-6 border-t print-signatures">
+             <h2 className="text-xl font-bold font-headline mb-4">Signatures</h2>
+            <p className="text-sm text-muted-foreground mb-8">By signing below, the roommates acknowledge that they have read, understood, and agree to the terms of this Agreement.</p>
+            <div className="space-y-8">
+                {data.roommates.map(r => (
+                    <div key={r.name} className="grid grid-cols-2 gap-8 items-end">
+                       <div>
+                            <p className="font-serif text-lg border-b border-foreground pb-1">
+                                {signatures[r.name]?.signature === r.name ? `/e-signed/ ${r.name}` : ''}
+                            </p>
+                            <p className="text-xs text-muted-foreground pt-1">Signature ({r.name})</p>
+                        </div>
+                        <div>
+                            <p className="font-sans border-b border-foreground pb-1 h-8">
+                                {signatures[r.name]?.date}
+                            </p>
+                            <p className="text-xs text-muted-foreground pt-1">Date</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
 
         <div className="text-center mt-12 text-xs text-muted-foreground">
             <p>Generated by RoommateReady</p>
@@ -130,3 +192,12 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
     </Card>
   );
 }
+
+// Add this style to globals.css or a style block
+// @media print {
+//   .no-print { display: none; }
+//   .print-signatures { display: block !important; }
+// }
+//
+// In agreement-preview.tsx, initialize print-signatures with `display: none`.
+

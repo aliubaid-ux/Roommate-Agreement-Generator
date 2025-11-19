@@ -73,6 +73,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .print-signatures {
+    display: none;
+  }
 }
 
 @media print {
@@ -87,5 +90,8 @@
     padding: 0;
     box-shadow: none;
     border: none;
+  }
+  .print-signatures {
+    display: block !important;
   }
 }

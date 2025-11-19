@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import {
   Banknote,
   CalendarIcon,
-  FilePlus2,
+  FileText,
   Hammer,
   Home,
   LogOut,
@@ -274,7 +274,7 @@ export default function AgreementForm() {
               </AccordionItem>
 
               <AccordionItem value="custom-clauses">
-                <AccordionTrigger className="text-lg font-semibold"><FilePlus2 className="mr-2 h-5 w-5 text-primary" />Custom Clauses</AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold"><FileText className="mr-2 h-5 w-5 text-primary" />Custom Clauses</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
                     <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Your Custom Clauses</FormLabel><FormDescription>Add any additional clauses here.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
