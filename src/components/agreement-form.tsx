@@ -47,6 +47,7 @@ import { Calendar } from "./ui/calendar";
 import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { useEffect } from "react";
 
 const UTILITY_OPTIONS = ["Electricity", "Water", "Internet", "Gas", "Trash"];
 
@@ -55,7 +56,6 @@ export default function AgreementForm() {
   const form = useForm<AgreementData>({
     resolver: zodResolver(agreementSchema),
     defaultValues: {
-      agreementDate: new Date(),
       roommates: [{ name: "" }],
       rent: { individualShares: [], paymentMethod: "Bank Transfer", dueDate: "1st of the month" },
       securityDeposit: { individualShares: [] },
@@ -65,6 +65,10 @@ export default function AgreementForm() {
       conflictResolution: "In case of a disagreement, roommates agree to discuss the issue respectfully. If a resolution cannot be reached, they will seek mediation.",
     },
   });
+
+  useEffect(() => {
+    form.setValue('agreementDate', new Date());
+  }, [form]);
 
   const { fields: roommates, append: appendRoommate, remove: removeRoommate } = useFieldArray({
     control: form.control,
@@ -295,3 +299,5 @@ export default function AgreementForm() {
     </Card>
   );
 }
+
+    
