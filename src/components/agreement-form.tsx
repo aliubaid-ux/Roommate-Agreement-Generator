@@ -16,7 +16,6 @@ import {
   PlusCircle,
   Receipt,
   Shield,
-  Sparkles,
   Trash2,
   Users,
   Volume2,
@@ -47,7 +46,6 @@ import { Calendar } from "./ui/calendar";
 import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import AiClauseSuggestion from "./ai-clause-suggestion";
 
 const UTILITY_OPTIONS = ["Electricity", "Water", "Internet", "Gas", "Trash"];
 
@@ -274,11 +272,10 @@ export default function AgreementForm() {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="ai-clauses">
-                <AccordionTrigger className="text-lg font-semibold"><Sparkles className="mr-2 h-5 w-5 text-primary" />AI-Powered Custom Clauses</AccordionTrigger>
+              <AccordionItem value="custom-clauses">
+                <AccordionTrigger className="text-lg font-semibold"><FilePlus2 className="mr-2 h-5 w-5 text-primary" />Custom Clauses</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                    <AiClauseSuggestion form={form} />
-                    <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Your Custom Clauses</FormLabel><FormDescription>Add any additional clauses here. You can use the AI tool above to generate ideas.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                    <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Your Custom Clauses</FormLabel><FormDescription>Add any additional clauses here.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
