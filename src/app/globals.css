@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    --background: 180 33% 91%; /* #E0F0F0 */
+    --background: 180 33% 94%; /* #EAF0F0 - Lighter desaturated teal */
     --foreground: 222.2 47.4% 11.2%;
 
-    --card: 180 33% 96%;
+    --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
 
-    --popover: 180 33% 96%;
+    --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 180 20% 55%; /* #73A7A7 */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 180 20% 55%; /* #73A7A7 - Muted teal */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 180 20% 85%;
+    --secondary: 180 33% 91%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 180 20% 88%;
     --muted-foreground: 222.2 47.4% 45%;
 
-    --accent: 28 62% 58%; /* #D9884B */
-    --accent-foreground: 240 10% 3.9%;
+    --accent: 28 62% 58%; /* #D9884B - Soft orange */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 180 20% 80%;
-    --input: 180 20% 85%;
+    --input: 180 20% 95%;
     --ring: 180 20% 55%;
 
     --radius: 0.5rem;
@@ -72,6 +72,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
   }
   .print-signatures {
     display: none;

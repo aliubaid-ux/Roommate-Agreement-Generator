@@ -12,9 +12,9 @@ interface AgreementPreviewProps {
 }
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-  <div className="mb-6">
-    <h2 className="text-xl font-bold font-headline border-b pb-2 mb-3">{title}</h2>
-    <div className="space-y-3 text-sm text-foreground/90">{children}</div>
+  <div className="mb-8">
+    <h2 className="text-2xl font-bold border-b-2 border-primary/20 pb-2 mb-4">{title}</h2>
+    <div className="space-y-4 text-sm text-foreground/90">{children}</div>
   </div>
 );
 
@@ -22,8 +22,8 @@ const Clause: React.FC<{ label: string; value?: string | number | null }> = ({ l
   if (!value) return null;
   return (
     <div>
-      <h3 className="font-semibold">{label}</h3>
-      <p className="whitespace-pre-wrap">{value}</p>
+      <h3 className="font-semibold text-base mb-1">{label}</h3>
+      <p className="whitespace-pre-wrap pl-2 border-l-2 border-primary/20">{value}</p>
     </div>
   );
 };
@@ -39,31 +39,12 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
     useEffect(() => {
         const initialSignatures: SignaturesState = {};
         data.roommates.forEach(r => {
-            initialSignatures[r.name] = { signature: "", date: null };
+            if (r.name) {
+                initialSignatures[r.name] = { signature: "", date: null };
+            }
         });
         setSignatures(initialSignatures);
     }, [data.roommates]);
-    
-    // This hook should run only on the client
-    useEffect(() => {
-        // Function to set the date only runs client-side, avoiding hydration mismatch
-        const setSignatureDate = (name: string) => {
-            setSignatures(prev => ({
-                ...prev,
-                [name]: {
-                    ...prev[name],
-                    date: prev[name].signature ? format(new Date(), "MMMM d, yyyy") : null,
-                }
-            }));
-        };
-
-        Object.keys(signatures).forEach(name => {
-            if (signatures[name].signature && !signatures[name].date) {
-                setSignatureDate(name);
-            }
-        });
-    }, [signatures]);
-
 
     const handleSignatureChange = (name: string, signature: string) => {
         setSignatures(prev => ({
@@ -78,20 +59,22 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
     const clearSignatures = () => {
         const clearedSignatures: SignaturesState = {};
         data.roommates.forEach(r => {
-            clearedSignatures[r.name] = { signature: "", date: null };
+            if (r.name) {
+                clearedSignatures[r.name] = { signature: "", date: null };
+            }
         });
         setSignatures(clearedSignatures);
     };
 
   return (
-    <Card className="shadow-lg">
-      <CardHeader className="text-center border-b">
-        <CardTitle className="text-3xl font-bold font-headline">Roommate Agreement</CardTitle>
-        <p className="text-muted-foreground">
+    <Card className="shadow-2xl rounded-lg border-2 border-primary/10">
+      <CardHeader className="text-center border-b bg-primary/5 p-8">
+        <CardTitle className="text-4xl font-bold">Roommate Agreement</CardTitle>
+        <p className="text-muted-foreground pt-1">
           Effective Date: {data.agreementDate ? format(new Date(data.agreementDate), "MMMM d, yyyy") : 'N/A'}
         </p>
       </CardHeader>
-      <CardContent className="p-6 md:p-10">
+      <CardContent className="p-8 md:p-12">
         <Section title="1. Parties & Premises">
             <p>This Roommate Agreement (the "Agreement") is made and entered into on {data.agreementDate ? format(new Date(data.agreementDate), "MMMM d, yyyy") : 'N/A'}, by and between the following roommates: <strong>{roommateNames}</strong>.</p>
             <p>The roommates agree to share the premises located at: <strong>{data.propertyAddress}</strong> (the "Premises").</p>
@@ -107,8 +90,8 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
 
         <Section title="3. Shared Expenses">
             <div>
-                <h3 className="font-semibold">Utilities</h3>
-                <ul className="list-disc pl-5 mt-1 space-y-1">
+                <h3 className="font-semibold text-base mb-2">Utilities</h3>
+                <ul className="list-disc pl-5 mt-1 space-y-2">
                     {data.utilities.filter(u => u.isShared).map(u => (
                         <li key={u.name}>{u.name}: To be split {u.paymentMethod}. {u.payer && `The bill will be paid by ${u.payer}.`}</li>
                     ))}
@@ -120,6 +103,7 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
         <Section title="4. Cleaning & Chores">
             <Clause label="Common Areas" value={data.cleaning.commonAreas} />
             <Clause label="Cleaning Schedule" value={data.cleaning.schedule} />
+            <Clause label="Chore Assignments" value={data.cleaning.choreList} />
         </Section>
 
         <Section title="5. Conduct & Policies">
@@ -151,64 +135,70 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
             </Section>
         )}
 
-        <div className="mt-12 pt-6 border-t no-print">
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-xl font-bold font-headline">E-Signatures</h2>
+        <div className="mt-12 pt-8 border-t no-print">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">E-Signatures</h2>
                 <Button variant="outline" size="sm" onClick={clearSignatures}>Clear Signatures</Button>
             </div>
             <p className="text-sm text-muted-foreground mb-6">By typing your name below, you acknowledge that you have read, understood, and agree to the terms of this Roommate Agreement. This constitutes a legal and binding electronic signature.</p>
             <div className="space-y-6">
-                {data.roommates.map(r => (
-                    <div key={r.name} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-                        <div className="md:col-span-2">
-                             <label htmlFor={`signature-${r.name}`} className="text-sm font-medium">{r.name}</label>
-                            <Input
-                                id={`signature-${r.name}`}
-                                type="text"
-                                placeholder={`Type '${r.name}' to sign`}
-                                value={signatures[r.name]?.signature || ''}
-                                onChange={(e) => handleSignatureChange(r.name, e.target.value)}
-                                className="mt-1 font-serif text-lg"
-                                disabled={signatures[r.name]?.signature === r.name}
-                            />
+                {data.roommates.map(r => {
+                    if (!r.name) return null;
+                    return (
+                        <div key={r.name} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                            <div className="md:col-span-2">
+                                <label htmlFor={`signature-${r.name}`} className="text-sm font-medium">{r.name}</label>
+                                <Input
+                                    id={`signature-${r.name}`}
+                                    type="text"
+                                    placeholder={`Type '${r.name}' to sign`}
+                                    value={(signatures[r.name]?.signature) || ''}
+                                    onChange={(e) => handleSignatureChange(r.name, e.target.value)}
+                                    className="mt-1 font-serif text-lg bg-input"
+                                    disabled={signatures[r.name]?.signature === r.name}
+                                />
+                            </div>
+                            <div>
+                                <label className="text-sm font-medium">Date</label>
+                                <p className="h-10 border-b mt-1 flex items-center px-3 text-muted-foreground text-sm">
+                                    {(signatures[r.name]?.date) || '---'}
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <label className="text-sm font-medium">Date</label>
-                            <p className="h-10 border-b mt-1 flex items-center px-3 text-muted-foreground">
-                                {signatures[r.name]?.date || '---'}
-                            </p>
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
 
         <div className="mt-12 pt-6 border-t print-signatures">
-             <h2 className="text-xl font-bold font-headline mb-4">Signatures</h2>
+             <h2 className="text-xl font-bold mb-4">Signatures</h2>
             <p className="text-sm text-muted-foreground mb-8">By signing below, the roommates acknowledge that they have read, understood, and agree to the terms of this Agreement.</p>
             <div className="space-y-8">
-                {data.roommates.map(r => (
-                    <div key={r.name} className="grid grid-cols-2 gap-8 items-end">
-                       <div>
-                            <p className="font-serif text-lg border-b border-foreground pb-1">
-                                {signatures[r.name]?.signature === r.name ? `/e-signed/ ${r.name}` : ''}
-                            </p>
-                            <p className="text-xs text-muted-foreground pt-1">Signature ({r.name})</p>
-                        </div>
+                {data.roommates.map(r => {
+                    if (!r.name) return null;
+                    return (
+                        <div key={r.name} className="grid grid-cols-2 gap-8 items-end">
                         <div>
-                            <p className="font-sans border-b border-foreground pb-1 h-8">
-                                {signatures[r.name]?.date}
-                            </p>
-                            <p className="text-xs text-muted-foreground pt-1">Date</p>
+                                <p className="font-serif text-lg border-b border-foreground pb-1">
+                                    {signatures[r.name]?.signature === r.name ? `/e-signed/ ${r.name}` : ''}
+                                </p>
+                                <p className="text-xs text-muted-foreground pt-1">Signature ({r.name})</p>
+                            </div>
+                            <div>
+                                <p className="font-sans border-b border-foreground pb-1 h-8">
+                                    {signatures[r.name]?.date}
+                                </p>
+                                <p className="text-xs text-muted-foreground pt-1">Date</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
 
 
         <div className="text-center mt-12 text-xs text-muted-foreground">
-            <p>Generated by the Free Roommate Agreement Generator</p>
+            <p>Generated by RoommateReady</p>
         </div>
       </CardContent>
     </Card>
