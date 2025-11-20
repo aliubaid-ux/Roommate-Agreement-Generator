@@ -64,9 +64,18 @@ export default function AgreementForm() {
       rent: { individualShares: [], paymentMethod: "Bank Transfer", dueDate: "1st of the month" },
       securityDeposit: { individualShares: [] },
       utilities: UTILITY_OPTIONS.map(name => ({ name, isShared: true, paymentMethod: 'equal' })),
-      cleaning: { commonAreas: "Kitchen, Living Room, Bathroom(s)" },
+      cleaning: { commonAreas: "Kitchen, Living Room, Bathroom(s)", schedule: "All roommates are responsible for keeping common areas clean. A deep clean of the apartment will be done on the first Saturday of each month, with tasks rotating." },
       terminationNoticePeriod: 30,
       conflictResolution: "In case of a disagreement, roommates agree to discuss the issue respectfully. If a resolution cannot be reached, they will seek mediation.",
+      guestPolicy: "Overnight guests are allowed for a maximum of 3 consecutive nights. Roommates must provide 24-hour notice for any overnight guest.",
+      noisePolicy: "Quiet hours are from 10 PM to 8 AM on weekdays and 12 AM to 9 AM on weekends.",
+      partyPolicy: "Parties or large gatherings must be approved by all roommates at least 1 week in advance.",
+      petsPolicy: "No pets are allowed on the premises, except for those agreed upon in writing by all roommates and the landlord.",
+      smokingAlcoholDrugsPolicy: "Smoking is not permitted inside the apartment. Illegal drug use is strictly prohibited.",
+      sharedProperty: "Kitchen appliances, living room furniture, and television are considered shared property.",
+      borrowingPolicy: "Personal items may only be borrowed with express permission from the owner.",
+      damageAndRepairsPolicy: "Damage caused by a roommate or their guest is the financial responsibility of that roommate. General repairs will be reported to the landlord.",
+      replacementRules: "A departing roommate is responsible for finding a suitable replacement, subject to approval by the remaining roommates and the landlord.",
     },
   });
 
@@ -86,7 +95,6 @@ export default function AgreementForm() {
   });
 
   function onSubmit(data: AgreementData) {
-    // Increment counters
     try {
         const generatedCount = parseInt(localStorage.getItem('agreementsGenerated') || '0', 10);
         localStorage.setItem('agreementsGenerated', (generatedCount + 1).toString());
@@ -105,9 +113,9 @@ export default function AgreementForm() {
   }
 
   return (
-    <Card className="max-w-4xl mx-auto shadow-lg border-2 border-primary/10">
+    <Card className="max-w-4xl mx-auto shadow-lg border-2 border-border bg-background">
       <CardHeader>
-        <CardTitle className="text-2xl">Build Your Roommate Agreement</CardTitle>
+        <CardTitle className="text-3xl font-bold text-center">Build Your Roommate Agreement</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -253,27 +261,26 @@ export default function AgreementForm() {
                 <AccordionContent className="space-y-4 pt-4">
                   <FormField control={form.control} name="cleaning.commonAreas" render={({ field }) => ( <FormItem><FormLabel>Common Areas to Clean</FormLabel><FormControl><Input placeholder="e.g., Kitchen, Living Room, Bathroom(s)" {...field} /></FormControl><FormMessage /></FormItem> )} />
                   <FormField control={form.control} name="cleaning.schedule" render={({ field }) => ( <FormItem><FormLabel>Cleaning Schedule</FormLabel><FormControl><Textarea placeholder="e.g., All roommates are responsible for keeping common areas clean. A deep clean of the apartment will be done on the first Saturday of each month, with tasks rotating." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="cleaning.choreList" render={({ field }) => ( <FormItem><FormLabel>Specific Chore Assignments (Optional)</FormLabel><FormControl><Textarea placeholder="e.g., John takes out trash, Jane cleans bathroom, etc." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="policies">
                 <AccordionTrigger className="text-lg font-semibold"><FileText className="mr-2 h-5 w-5 text-primary" />Conduct & Policies</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                  <FormField control={form.control} name="guestPolicy" render={({ field }) => ( <FormItem><FormLabel><PartyPopper className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Guest Policy</FormLabel><FormControl><Textarea placeholder="e.g., Overnight guests are allowed for a maximum of 3 consecutive nights. Roommates must provide 24-hour notice for any overnight guest." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                   <FormField control={form.control} name="partyPolicy" render={({ field }) => ( <FormItem><FormLabel><Beer className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Party Rules</FormLabel><FormControl><Textarea placeholder="e.g., Parties or large gatherings must be approved by all roommates at least 1 week in advance." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="noisePolicy" render={({ field }) => ( <FormItem><FormLabel><Volume2 className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Noise / Quiet Hours</FormLabel><FormControl><Textarea placeholder="e.g., Quiet hours are from 10 PM to 8 AM on weekdays and 12 AM to 9 AM on weekends." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="petsPolicy" render={({ field }) => ( <FormItem><FormLabel><PawPrint className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Pets Policy</FormLabel><FormControl><Textarea placeholder="e.g., No pets are allowed on the premises, except for those agreed upon in writing by all roommates and the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="smokingAlcoholDrugsPolicy" render={({ field }) => ( <FormItem><FormLabel>Smoking, Alcohol, and Drugs Policy</FormLabel><FormControl><Textarea placeholder="e.g., Smoking is not permitted inside the apartment. Illegal drug use is strictly prohibited." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="guestPolicy" render={({ field }) => ( <FormItem><FormLabel><PartyPopper className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Guest Policy</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                   <FormField control={form.control} name="partyPolicy" render={({ field }) => ( <FormItem><FormLabel><Beer className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Party Rules</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="noisePolicy" render={({ field }) => ( <FormItem><FormLabel><Volume2 className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Noise / Quiet Hours</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="petsPolicy" render={({ field }) => ( <FormItem><FormLabel><PawPrint className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Pets Policy</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="smokingAlcoholDrugsPolicy" render={({ field }) => ( <FormItem><FormLabel>Smoking, Alcohol, and Drugs Policy</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="property">
                 <AccordionTrigger className="text-lg font-semibold"><Home className="mr-2 h-5 w-5 text-primary" />Property & Belongings</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                  <FormField control={form.control} name="sharedProperty" render={({ field }) => ( <FormItem><FormLabel>Shared Items</FormLabel><FormControl><Textarea placeholder="e.g., Kitchen appliances, living room furniture, and television are considered shared property." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="borrowingPolicy" render={({ field }) => ( <FormItem><FormLabel>Borrowing Personal Items</FormLabel><FormControl><Textarea placeholder="e.g., Personal items may only be borrowed with express permission from the owner." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="damageAndRepairsPolicy" render={({ field }) => ( <FormItem><FormLabel><Hammer className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Damage and Repairs</FormLabel><FormControl><Textarea placeholder="e.g., Damage caused by a roommate or their guest is the financial responsibility of that roommate. General repairs will be reported to the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="sharedProperty" render={({ field }) => ( <FormItem><FormLabel>Shared Items</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="borrowingPolicy" render={({ field }) => ( <FormItem><FormLabel>Borrowing Personal Items</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="damageAndRepairsPolicy" render={({ field }) => ( <FormItem><FormLabel><Hammer className="inline-block mr-2 h-4 w-4 text-muted-foreground" />Damage and Repairs</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
               
@@ -281,7 +288,7 @@ export default function AgreementForm() {
                 <AccordionTrigger className="text-lg font-semibold"><LogOut className="mr-2 h-5 w-5 text-primary" />Exit & Termination</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
                    <FormField control={form.control} name="terminationNoticePeriod" render={({ field }) => ( <FormItem><FormLabel>Move-out Notice Period (days)</FormLabel><FormControl><Input type="number" placeholder="30" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10))} /></FormControl><FormMessage /></FormItem> )} />
-                   <FormField control={form.control} name="replacementRules" render={({ field }) => ( <FormItem><FormLabel>Replacement Roommate Rules</FormLabel><FormControl><Textarea placeholder="e.g., A departing roommate is responsible for finding a suitable replacement, subject to approval by the remaining roommates and the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                   <FormField control={form.control} name="replacementRules" render={({ field }) => ( <FormItem><FormLabel>Replacement Roommate Rules</FormLabel><FormControl><Textarea {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
@@ -305,7 +312,7 @@ export default function AgreementForm() {
               <div className="text-sm font-medium text-destructive">{form.formState.errors.root.message}</div>
             )}
 
-            <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold" disabled={form.formState.isSubmitting}>
+            <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-bold" disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? "Generating..." : "Generate Roommate Agreement"}
             </Button>
           </form>

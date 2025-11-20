@@ -13,7 +13,7 @@ interface AgreementPreviewProps {
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="mb-8">
-    <h2 className="text-2xl font-bold border-b-2 border-primary/20 pb-2 mb-4">{title}</h2>
+    <h2 className="text-2xl font-bold border-b-2 border-primary/20 pb-2 mb-4 text-primary">{title}</h2>
     <div className="space-y-4 text-sm text-foreground/90">{children}</div>
   </div>
 );
@@ -23,7 +23,7 @@ const Clause: React.FC<{ label: string; value?: string | number | null }> = ({ l
   return (
     <div>
       <h3 className="font-semibold text-base mb-1">{label}</h3>
-      <p className="whitespace-pre-wrap pl-2 border-l-2 border-primary/20">{value}</p>
+      <p className="whitespace-pre-wrap pl-4 border-l-2 border-border">{value}</p>
     </div>
   );
 };
@@ -67,9 +67,9 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
     };
 
   return (
-    <Card className="shadow-2xl rounded-lg border-2 border-primary/10">
-      <CardHeader className="text-center border-b bg-primary/5 p-8">
-        <CardTitle className="text-4xl font-bold">Roommate Agreement</CardTitle>
+    <Card className="shadow-2xl rounded-lg border-2 border-border bg-background">
+      <CardHeader className="text-center border-b border-border bg-secondary/20 p-8">
+        <CardTitle className="text-4xl font-bold text-primary">Roommate Agreement</CardTitle>
         <p className="text-muted-foreground pt-1">
           Effective Date: {data.agreementDate ? format(new Date(data.agreementDate), "MMMM d, yyyy") : 'N/A'}
         </p>
@@ -103,7 +103,6 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
         <Section title="4. Cleaning & Chores">
             <Clause label="Common Areas" value={data.cleaning.commonAreas} />
             <Clause label="Cleaning Schedule" value={data.cleaning.schedule} />
-            <Clause label="Chore Assignments" value={data.cleaning.choreList} />
         </Section>
 
         <Section title="5. Conduct & Policies">
@@ -135,9 +134,9 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
             </Section>
         )}
 
-        <div className="mt-12 pt-8 border-t no-print">
+        <div className="mt-12 pt-8 border-t border-border no-print">
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">E-Signatures</h2>
+                <h2 className="text-2xl font-bold text-primary">E-Signatures</h2>
                 <Button variant="outline" size="sm" onClick={clearSignatures}>Clear Signatures</Button>
             </div>
             <p className="text-sm text-muted-foreground mb-6">By typing your name below, you acknowledge that you have read, understood, and agree to the terms of this Roommate Agreement. This constitutes a legal and binding electronic signature.</p>
@@ -160,7 +159,7 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
                             </div>
                             <div>
                                 <label className="text-sm font-medium">Date</label>
-                                <p className="h-10 border-b mt-1 flex items-center px-3 text-muted-foreground text-sm">
+                                <p className="h-10 border-b border-border mt-1 flex items-center px-3 text-muted-foreground text-sm">
                                     {(signatures[r.name]?.date) || '---'}
                                 </p>
                             </div>
@@ -170,7 +169,7 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
             </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t print-signatures">
+        <div className="mt-12 pt-6 border-t border-foreground print-signatures">
              <h2 className="text-xl font-bold mb-4">Signatures</h2>
             <p className="text-sm text-muted-foreground mb-8">By signing below, the roommates acknowledge that they have read, understood, and agree to the terms of this Agreement.</p>
             <div className="space-y-8">
