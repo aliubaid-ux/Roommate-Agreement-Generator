@@ -1,3 +1,4 @@
+
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,7 +24,7 @@ export function NavMenu() {
     return (
         <>
             {/* Desktop Menu */}
-            <nav className="ml-auto hidden md:flex gap-4 sm:gap-6">
+            <nav className="ml-auto hidden md:flex gap-4 sm:gap-6 items-center">
                 {mainNavLinks.map(({ href, label }) => (
                     <Link
                         key={href}
