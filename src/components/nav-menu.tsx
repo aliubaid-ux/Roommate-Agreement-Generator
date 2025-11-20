@@ -9,6 +9,8 @@ import { Menu } from "lucide-react";
 
 const mainNavLinks = [
     { href: "/", label: "Home" },
+    { href: "/how-it-works", label: "How It Works" },
+    { href: "/templates", label: "Templates" },
     { href: "/what-to-include", label: "What to Include" },
     { href: "/faq", label: "FAQ" },
     { href: "/blog", label: "Blog" },

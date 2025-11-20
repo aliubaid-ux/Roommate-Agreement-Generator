@@ -10,6 +10,13 @@ export function Footer() {
       </p>
       <nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center">
         <Link
+          href="/legal-disclaimer"
+          className="text-xs hover:underline underline-offset-4"
+          prefetch={false}
+        >
+          Legal Disclaimer
+        </Link>
+        <Link
           href="/terms-of-service"
           className="text-xs hover:underline underline-offset-4"
           prefetch={false}
