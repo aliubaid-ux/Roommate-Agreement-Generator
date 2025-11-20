@@ -1,6 +1,7 @@
 
 import { Home } from "lucide-react";
 import Link from "next/link";
+import { NavMenu } from "./nav-menu";
 
 export function Header() {
   return (
@@ -9,6 +10,7 @@ export function Header() {
         <Home className="h-6 w-6 text-primary" />
         <span className="ml-3 text-xl font-bold font-headline">RoommateReady</span>
       </Link>
+      <NavMenu />
     </header>
   );
 }

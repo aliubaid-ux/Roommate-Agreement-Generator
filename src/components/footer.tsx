@@ -10,14 +10,14 @@ export function Footer() {
       </p>
       <nav className="sm:ml-auto flex gap-4 sm:gap-6 items-center">
         <Link
-          href="#"
+          href="/terms-of-service"
           className="text-xs hover:underline underline-offset-4"
           prefetch={false}
         >
           Terms of Service
         </Link>
         <Link
-          href="#"
+          href="/privacy"
           className="text-xs hover:underline underline-offset-4"
           prefetch={false}
         >
