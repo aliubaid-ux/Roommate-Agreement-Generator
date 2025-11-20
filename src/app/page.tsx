@@ -65,9 +65,9 @@ export default function Home() {
                   Create a clear, comprehensive, and legally-sound roommate contract in minutes. Prevent disputes over rent, bills, chores, and guests by setting clear expectations from the start.
                 </p>
               </div>
-              <div className="flex flex-col items-start space-y-4 rounded-lg bg-secondary/50 p-6 md:p-8">
+              <div className="flex flex-col items-center space-y-4 rounded-lg bg-secondary/50 p-6 md:p-8">
                   <h3 className="text-2xl font-bold">Why You Need a Written Roommate Agreement</h3>
-                  <p className="text-muted-foreground">A roommate contract isn't just for bad roommates—it's a tool for good ones. It protects your friendship, finances, and peace of mind.</p>
+                  <p className="text-muted-foreground text-center">A roommate contract isn't just for bad roommates—it's a tool for good ones. It protects your friendship, finances, and peace of mind.</p>
                   <ul className="space-y-2 text-muted-foreground">
                       <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-primary" /> Avoid Financial Disputes</li>
                       <li className="flex items-center gap-2"><CheckCircle className="h-5 w-5 text-primary" /> Clarify Cleaning Duties</li>

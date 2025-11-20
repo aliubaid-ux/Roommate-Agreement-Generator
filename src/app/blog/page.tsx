@@ -55,12 +55,12 @@ export default function BlogPage() {
                         <div className="grid gap-8 max-w-4xl mx-auto md:grid-cols-2">
                             {blogPosts.map((post) => (
                                 <Card key={post.title} className="flex flex-col">
-                                    <CardHeader>
+                                    <CardHeader className="text-center">
                                         <CardTitle>{post.title}</CardTitle>
                                         <CardDescription>{post.date}</CardDescription>
                                     </CardHeader>
                                     <CardContent className="flex-grow">
-                                        <p className="text-muted-foreground">{post.description}</p>
+                                        <p className="text-muted-foreground text-center">{post.description}</p>
                                     </CardContent>
                                 </Card>
                             ))}
