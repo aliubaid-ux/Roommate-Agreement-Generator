@@ -11,10 +11,10 @@ export default function Home() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-primary/10">
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl space-y-4 text-center">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-foreground/90">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground/90">
                 Prevent Roommate Drama — Make Expectations Clear
               </h1>
-              <p className="text-primary-foreground/80 md:text-xl">
+              <p className="text-foreground/80 md:text-xl">
                 Our free Roommate Agreement generator helps you create a solid contract to split rent, bills, and chores. Agree on the rules now to avoid fights later. No sign-up required.
               </p>
             </div>
