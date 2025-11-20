@@ -2,26 +2,16 @@
 'use client';
 import Link from "next/link";
 
-const popularLocations = [
-    { label: "New York", href: "/roommate-agreement/new-york" },
-    { label: "Los Angeles", href: "/roommate-agreement/los-angeles" },
-    { label: "Canada", href: "/roommate-agreement/canada" },
-    { label: "UK", href: "/roommate-agreement/uk" },
-    { label: "Australia", href: "/roommate-agreement/australia" },
-];
-
 export function Footer() {
   return (
     <footer className="flex flex-col gap-8 py-8 w-full shrink-0 px-4 md:px-6 border-t border-border no-print">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
         <div>
-            <h3 className="font-bold text-sm mb-2 text-foreground">Popular Locations</h3>
+            <h3 className="font-bold text-sm mb-2 text-foreground">Generator</h3>
             <nav className="flex flex-col gap-2">
-                 {popularLocations.map(link => (
-                    <Link key={link.href} href={link.href} className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>
-                        Roommate Agreement {link.label}
-                    </Link>
-                ))}
+                <Link href="/#generator" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Create Agreement</Link>
+                <Link href="/how-it-works" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>How It Works</Link>
+                <Link href="/sample-roommate-agreement" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Sample Agreement</Link>
             </nav>
         </div>
          <div>
@@ -30,6 +20,7 @@ export function Footer() {
                 <Link href="/blog" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Blog</Link>
                 <Link href="/faq" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>FAQ</Link>
                 <Link href="/what-to-include" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>What to Include</Link>
+                <Link href="/templates" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Templates</Link>
             </nav>
         </div>
         <div>
@@ -37,6 +28,7 @@ export function Footer() {
             <nav className="flex flex-col gap-2">
                  <Link href="/about" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>About Us</Link>
                  <Link href="/#generator" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Contact (Coming Soon)</Link>
+                 <Link href="/locations" className="text-xs text-muted-foreground hover:underline underline-offset-4" prefetch={false}>Locations</Link>
             </nav>
         </div>
          <div>

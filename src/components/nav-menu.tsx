@@ -1,4 +1,3 @@
-
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,6 +11,7 @@ const mainNavLinks = [
     { href: "/how-it-works", label: "How It Works" },
     { href: "/templates", label: "Templates" },
     { href: "/what-to-include", label: "What to Include" },
+    { href: "/locations", label: "Locations" },
     { href: "/faq", label: "FAQ" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
