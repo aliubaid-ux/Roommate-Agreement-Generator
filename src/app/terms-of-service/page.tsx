@@ -29,7 +29,7 @@ export default function TermsOfServicePage() {
                     <p>You agree not to use the Service for any unlawful purpose or to create any document that violates local, state, or federal laws.</p>
                     
                     <h2 className="text-2xl font-semibold">3. No Warranty</h2>
-                    <p>The Service is provided on an "AS IS" and "AS AVAILABLE" basis. We make no warranties, express or implied, regarding the accuracy, reliability, or completeness of the content and materials on the Service. We disclaim all warranties, including but not limited to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+                    <p>The Service is provided on an "AS IS" and "AS AVAILABLE" basis. We make no warranties, express or implied, regarding the accuracy, reliability, or completeness of the content and materials on the Service. We disclaim all warranties, including but not all to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
 
                     <h2 className="text-2xl font-semibold">4. Limitation of Liability</h2>
                     <p>In no event shall RoommateReady, nor its directors, employees, or partners, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the Service.</p>
