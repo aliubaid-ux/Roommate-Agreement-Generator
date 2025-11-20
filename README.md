@@ -1,5 +1,5 @@
-# Firebase Studio
+# RoommateReady - Free Roommate Agreement Generator
 
-This is a NextJS starter in Firebase Studio.
+Create a clear, comprehensive, and legally-sound roommate contract in minutes. Prevent disputes over rent, bills, chores, and guests by setting clear expectations from the start.
 
-To get started, take a look at src/app/page.tsx.
+This project was built with Next.js, TypeScript, Tailwind CSS, and ShadCN UI.
