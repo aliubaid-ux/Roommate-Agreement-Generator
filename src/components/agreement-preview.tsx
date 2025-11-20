@@ -33,7 +33,7 @@ type SignaturesState = {
 };
 
 export function AgreementPreview({ data }: AgreementPreviewProps) {
-    const roommateNames = data.roommates.map(r => r.name).join(', ');
+    const roommateNames = data.roommates.filter(r => r.name).map(r => r.name).join(', ');
     const [signatures, setSignatures] = useState<SignaturesState>({});
 
     useEffect(() => {

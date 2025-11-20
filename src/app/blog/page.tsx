@@ -1,11 +1,8 @@
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Roommate Agreement Blog | Tips for Harmonious Living",
@@ -16,25 +13,21 @@ const blogPosts = [
     {
         title: "Top 10 Roommate Conflicts & How to Avoid Them",
         description: "From dirty dishes to overdue bills, we break down the most common roommate disputes and show you how a clear agreement can prevent them before they start.",
-        link: "#", // In the future, this would be a real link e.g. /blog/top-10-conflicts
         date: "Coming Soon"
     },
     {
         title: "How to Split Rent Fairly: A Complete Guide",
         description: "Splitting rent isn't always about a 50/50 division. We explore different methods for splitting rent based on room size, income, and other factors.",
-         link: "#",
         date: "Coming Soon"
     },
     {
         title: "Guest Policy Rules Every Shared House Should Have",
         description: "Overnight guests can be a major source of tension. Learn how to set fair and clear guest policies that respect everyone's space and comfort.",
-         link: "#",
         date: "Coming Soon"
     },
     {
         title: "How to Write a Chore Schedule That Actually Works",
         description: "Tired of arguing about who's turn it is to clean the bathroom? We provide templates and strategies for creating a chore schedule that keeps your home tidy and conflict-free.",
-         link: "#",
         date: "Coming Soon"
     }
 ]
@@ -69,11 +62,6 @@ export default function BlogPage() {
                                     <CardContent className="flex-grow">
                                         <p className="text-muted-foreground">{post.description}</p>
                                     </CardContent>
-                                    <CardFooter>
-                                        <Button asChild variant="outline" className="w-full" disabled>
-                                            <Link href={post.link}>Read More <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                                        </Button>
-                                    </CardFooter>
                                 </Card>
                             ))}
                         </div>
