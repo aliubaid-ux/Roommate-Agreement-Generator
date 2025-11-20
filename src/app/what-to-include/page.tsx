@@ -3,7 +3,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Banknote, FileText, Hammer, Home, PartyPopper, Shield, Sparkles } from "lucide-react";
+import { Banknote, FileText, Hammer, Home, PartyPopper, Shield, Sparkles, Users } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
