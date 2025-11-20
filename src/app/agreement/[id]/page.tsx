@@ -55,6 +55,26 @@ export default function AgreementPage() {
             description: "The shareable link has been copied to your clipboard.",
         });
     };
+    
+    const handleDownload = () => {
+        try {
+            const downloads = parseInt(localStorage.getItem('downloadsCount') || '0', 10);
+            localStorage.setItem('downloadsCount', (downloads + 1).toString());
+        } catch (e) {
+            console.warn('Could not update download counter in localStorage');
+        }
+        window.print();
+    };
+
+    const handleFeedback = (feedback: 'like' | 'dislike') => {
+        try {
+            const feedbackCount = parseInt(localStorage.getItem(feedback) || '0', 10);
+            localStorage.setItem(feedback, (feedbackCount + 1).toString());
+        } catch (e) {
+             console.warn('Could not save feedback in localStorage');
+        }
+        toast({ title: "Thanks for your feedback!" });
+    };
 
     if (loading) {
         return (
@@ -71,7 +91,7 @@ export default function AgreementPage() {
                     <CardContent className="p-8 space-y-4">
                         <h1 className="text-2xl font-bold">Roommate Agreement Link Expired</h1>
                         <p className="text-muted-foreground">
-                            This agreement link was valid for 24 hours and has now expired. Please generate a new agreement.
+                            This agreement link was valid for 24 hours and has now expired. Please generate a new one.
                         </p>
                         <Button onClick={() => router.push('/')}>Create New Roommate Agreement</Button>
                     </CardContent>
@@ -105,7 +125,7 @@ export default function AgreementPage() {
                         <h1 className="text-2xl font-bold font-headline">Your Roommate Agreement is Ready</h1>
                         <div className="flex gap-2">
                             <Button variant="outline" onClick={handleShare}><Share2 className="mr-2 h-4 w-4" /> Share</Button>
-                            <Button onClick={() => window.print()} className="bg-accent hover:bg-accent/90 text-accent-foreground"><Download className="mr-2 h-4 w-4" /> Download PDF</Button>
+                            <Button onClick={handleDownload} className="bg-accent hover:bg-accent/90 text-accent-foreground"><Download className="mr-2 h-4 w-4" /> Download PDF</Button>
                         </div>
                     </div>
                     <div className="printable-area">
@@ -114,8 +134,8 @@ export default function AgreementPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 border-t no-print">
                         <p className="text-sm text-muted-foreground">Was this roommate agreement tool helpful?</p>
                         <div className="flex gap-2">
-                            <Button variant="outline" size="icon" onClick={() => toast({ title: "Thanks for your feedback!" })}><ThumbsUp className="h-4 w-4" /></Button>
-                            <Button variant="outline" size="icon" onClick={() => toast({ title: "Thanks for your feedback!" })}><ThumbsDown className="h-4 w-4" /></Button>
+                            <Button variant="outline" size="icon" onClick={() => handleFeedback('like')}><ThumbsUp className="h-4 w-4" /></Button>
+                            <Button variant="outline" size="icon" onClick={() => handleFeedback('dislike')}><ThumbsDown className="h-4 w-4" /></Button>
                         </div>
                     </div>
                 </div>

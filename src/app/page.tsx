@@ -12,10 +12,10 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl space-y-4 text-center">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
-                Create a Solid Roommate Agreement, Avoid Conflict
+                Prevent Roommate Drama — Make Expectations Clear
               </h1>
               <p className="text-muted-foreground md:text-xl">
-                Use our free Roommate Agreement generator to set clear expectations on rent, bills, and chores. A clear contract prevents future problems. No sign-up required.
+                Our free Roommate Agreement generator helps you create a solid contract to split rent, bills, and chores. Agree on the rules now to avoid fights later. No sign-up required.
               </p>
             </div>
           </div>

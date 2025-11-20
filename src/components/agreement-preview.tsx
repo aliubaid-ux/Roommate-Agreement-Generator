@@ -43,6 +43,27 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
         });
         setSignatures(initialSignatures);
     }, [data.roommates]);
+    
+    // This hook should run only on the client
+    useEffect(() => {
+        // Function to set the date only runs client-side, avoiding hydration mismatch
+        const setSignatureDate = (name: string) => {
+            setSignatures(prev => ({
+                ...prev,
+                [name]: {
+                    ...prev[name],
+                    date: prev[name].signature ? format(new Date(), "MMMM d, yyyy") : null,
+                }
+            }));
+        };
+
+        Object.keys(signatures).forEach(name => {
+            if (signatures[name].signature && !signatures[name].date) {
+                setSignatureDate(name);
+            }
+        });
+    }, [signatures]);
+
 
     const handleSignatureChange = (name: string, signature: string) => {
         setSignatures(prev => ({
@@ -101,8 +122,9 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
             <Clause label="Cleaning Schedule" value={data.cleaning.schedule} />
         </Section>
 
-        <Section title="5. General Policies">
+        <Section title="5. Conduct & Policies">
             <Clause label="Guest Policy" value={data.guestPolicy} />
+            <Clause label="Party Rules" value={data.partyPolicy} />
             <Clause label="Noise & Quiet Hours" value={data.noisePolicy} />
             <Clause label="Pets Policy" value={data.petsPolicy} />
             <Clause label="Smoking, Alcohol, and Drugs" value={data.smokingAlcoholDrugsPolicy} />
@@ -124,7 +146,7 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
         </Section>
 
         {data.customClauses && (
-             <Section title="9. Custom Clauses">
+             <Section title="9. Additional Clauses">
                 <p className="whitespace-pre-wrap">{data.customClauses}</p>
             </Section>
         )}
@@ -192,11 +214,3 @@ export function AgreementPreview({ data }: AgreementPreviewProps) {
     </Card>
   );
 }
-
-// Add this style to globals.css or a style block
-// @media print {
-//   .no-print { display: none; }
-//   .print-signatures { display: block !important; }
-// }
-//
-// In agreement-preview.tsx, initialize print-signatures with `display: none`.

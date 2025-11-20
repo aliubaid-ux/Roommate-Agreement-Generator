@@ -9,11 +9,13 @@ import { useRouter } from "next/navigation";
 import {
   Banknote,
   CalendarIcon,
+  FilePen,
   FileText,
   Hammer,
   Home,
   LogOut,
   PartyPopper,
+  PawPrint,
   PlusCircle,
   Receipt,
   Shield,
@@ -81,6 +83,14 @@ export default function AgreementForm() {
   });
 
   function onSubmit(data: AgreementData) {
+    // Increment counters
+    try {
+        const generatedCount = parseInt(localStorage.getItem('agreementsGenerated') || '0', 10);
+        localStorage.setItem('agreementsGenerated', (generatedCount + 1).toString());
+    } catch (e) {
+        console.warn('Could not update usage counters in localStorage');
+    }
+
     const id = Date.now().toString();
     try {
       localStorage.setItem(`agreement-${id}`, JSON.stringify(data));
@@ -103,7 +113,6 @@ export default function AgreementForm() {
               <AccordionItem value="basic-info">
                 <AccordionTrigger className="text-lg font-semibold"><Users className="mr-2 h-5 w-5 text-primary" />Basic Info</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                  {/* Form fields for basic info */}
                   <FormField control={form.control} name="propertyAddress" render={({ field }) => (
                     <FormItem>
                       <FormLabel>Property Address</FormLabel>
@@ -238,17 +247,18 @@ export default function AgreementForm() {
               <AccordionItem value="chores">
                 <AccordionTrigger className="text-lg font-semibold"><Trash2 className="mr-2 h-5 w-5 text-primary" />Cleaning & Chores</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                  <FormField control={form.control} name="cleaning.commonAreas" render={({ field }) => ( <FormItem><FormLabel>Common Areas</FormLabel><FormControl><Input placeholder="e.g., Kitchen, Living Room, Bathroom(s)" {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="cleaning.commonAreas" render={({ field }) => ( <FormItem><FormLabel>Common Areas to Clean</FormLabel><FormControl><Input placeholder="e.g., Kitchen, Living Room, Bathroom(s)" {...field} /></FormControl><FormMessage /></FormItem> )} />
                   <FormField control={form.control} name="cleaning.schedule" render={({ field }) => ( <FormItem><FormLabel>Cleaning Schedule</FormLabel><FormControl><Textarea placeholder="e.g., All roommates are responsible for keeping common areas clean. A deep clean of the apartment will be done on the first Saturday of each month, with tasks rotating." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="policies">
-                <AccordionTrigger className="text-lg font-semibold"><PartyPopper className="mr-2 h-5 w-5 text-primary" />General Policies</AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold"><FileText className="mr-2 h-5 w-5 text-primary" />Conduct & Policies</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
-                  <FormField control={form.control} name="guestPolicy" render={({ field }) => ( <FormItem><FormLabel>Guest Policy</FormLabel><FormControl><Textarea placeholder="e.g., Overnight guests are allowed for a maximum of 3 consecutive nights. Roommates must provide 24-hour notice for any overnight guest." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="noisePolicy" render={({ field }) => ( <FormItem><FormLabel>Noise / Quiet Hours</FormLabel><FormControl><Textarea placeholder="e.g., Quiet hours are from 10 PM to 8 AM on weekdays and 12 AM to 9 AM on weekends." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="petsPolicy" render={({ field }) => ( <FormItem><FormLabel>Pets Policy</FormLabel><FormControl><Textarea placeholder="e.g., No pets are allowed on the premises, except for those agreed upon in writing by all roommates and the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="guestPolicy" render={({ field }) => ( <FormItem><FormLabel><PartyPopper className="inline-block mr-2 h-4 w-4" />Guest Policy</FormLabel><FormControl><Textarea placeholder="e.g., Overnight guests are allowed for a maximum of 3 consecutive nights. Roommates must provide 24-hour notice for any overnight guest." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                   <FormField control={form.control} name="partyPolicy" render={({ field }) => ( <FormItem><FormLabel>Party Rules</FormLabel><FormControl><Textarea placeholder="e.g., Parties or large gatherings must be approved by all roommates at least 1 week in advance." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="noisePolicy" render={({ field }) => ( <FormItem><FormLabel><Volume2 className="inline-block mr-2 h-4 w-4" />Noise / Quiet Hours</FormLabel><FormControl><Textarea placeholder="e.g., Quiet hours are from 10 PM to 8 AM on weekdays and 12 AM to 9 AM on weekends." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="petsPolicy" render={({ field }) => ( <FormItem><FormLabel><PawPrint className="inline-block mr-2 h-4 w-4" />Pets Policy</FormLabel><FormControl><Textarea placeholder="e.g., No pets are allowed on the premises, except for those agreed upon in writing by all roommates and the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
                   <FormField control={form.control} name="smokingAlcoholDrugsPolicy" render={({ field }) => ( <FormItem><FormLabel>Smoking, Alcohol, and Drugs Policy</FormLabel><FormControl><Textarea placeholder="e.g., Smoking is not permitted inside the apartment. Illegal drug use is strictly prohibited." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
@@ -258,7 +268,7 @@ export default function AgreementForm() {
                 <AccordionContent className="space-y-4 pt-4">
                   <FormField control={form.control} name="sharedProperty" render={({ field }) => ( <FormItem><FormLabel>Shared Items</FormLabel><FormControl><Textarea placeholder="e.g., Kitchen appliances, living room furniture, and television are considered shared property." {...field} /></FormControl><FormMessage /></FormItem> )} />
                   <FormField control={form.control} name="borrowingPolicy" render={({ field }) => ( <FormItem><FormLabel>Borrowing Personal Items</FormLabel><FormControl><Textarea placeholder="e.g., Personal items may only be borrowed with express permission from the owner." {...field} /></FormControl><FormMessage /></FormItem> )} />
-                  <FormField control={form.control} name="damageAndRepairsPolicy" render={({ field }) => ( <FormItem><FormLabel>Damage and Repairs</FormLabel><FormControl><Textarea placeholder="e.g., Damage caused by a roommate or their guest is the financial responsibility of that roommate. General repairs will be reported to the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
+                  <FormField control={form.control} name="damageAndRepairsPolicy" render={({ field }) => ( <FormItem><FormLabel><Hammer className="inline-block mr-2 h-4 w-4" />Damage and Repairs</FormLabel><FormControl><Textarea placeholder="e.g., Damage caused by a roommate or their guest is the financial responsibility of that roommate. General repairs will be reported to the landlord." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>
               </AccordionItem>
               
@@ -278,7 +288,7 @@ export default function AgreementForm() {
               </AccordionItem>
 
               <AccordionItem value="custom-clauses">
-                <AccordionTrigger className="text-lg font-semibold"><FileText className="mr-2 h-5 w-5 text-primary" />Custom Clauses</AccordionTrigger>
+                <AccordionTrigger className="text-lg font-semibold"><FilePen className="mr-2 h-5 w-5 text-primary" />Additional Clauses</AccordionTrigger>
                 <AccordionContent className="space-y-4 pt-4">
                     <FormField control={form.control} name="customClauses" render={({ field }) => ( <FormItem><FormLabel>Add Your Own Clauses</FormLabel><FormDescription>Add any additional rules or terms to your roommate agreement.</FormDescription><FormControl><Textarea rows={5} placeholder="e.g., 1. The south-facing balcony is designated as a quiet reading area from 9 AM to 5 PM..." {...field} /></FormControl><FormMessage /></FormItem> )} />
                 </AccordionContent>

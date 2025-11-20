@@ -1,3 +1,4 @@
+
 import { z } from "zod";
 
 export const agreementSchema = z.object({
@@ -18,7 +19,7 @@ export const agreementSchema = z.object({
     dueDate: z.string().min(1, "Rent due date is required."),
   }),
   securityDeposit: z.object({
-    total: z.coerce.number().nonnegative(),
+    total: z.coerce.number().nonnegative("Security deposit must be a non-negative number."),
     individualShares: z.array(z.object({ roommateName: z.string(), share: z.coerce.number().nonnegative() })),
     refundConditions: z.string().optional(),
   }),
@@ -35,9 +36,8 @@ export const agreementSchema = z.object({
 
   // Chores
   cleaning: z.object({
-    commonAreas: z.string().optional(),
+    commonAreas: z.string().min(1, "Please define the common areas."),
     schedule: z.string().optional(),
-    choreAssignments: z.string().optional(),
   }),
 
   // Policies
