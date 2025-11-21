@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "Free Roommate Agreement Generator - Create a Roommate Contract",
   description: "Generate a free Roommate Agreement contract in minutes. Define clear rules for rent, utilities, chores, guests, and more to prevent disputes and roommate drama. No sign-up required.",
   keywords: "roommate agreement, roommate contract, roommate agreement template, free roommate agreement, roommate contract template, shared housing agreement, flatmate rules contract, rent and utilities contract, co-tenant roommate agreement",
+  verification: {
+    google: 'ddfPVyRv0DjdEx1Pg5iLrlH6s1T-zhfwsh94Le7Wwu0',
+  },
 };
 
 export default function RootLayout({
