@@ -2,17 +2,10 @@
 'use client';
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { AgreementPreview } from "@/components/agreement-preview";
 import type { AgreementData } from "@/lib/schema";
 import { Button } from "@/components/ui/button";
-
-// Note: Metadata is still useful here for static generation, but won't be dynamic.
-// export const metadata: Metadata = { // This cannot be used in a client component
-//     title: "Sample Roommate Agreement | Example Contract",
-//     description: "View a sample roommate agreement created with our generator. See how a completed contract looks, including clauses for rent, chores, guests, and more.",
-// };
 
 const sampleData: AgreementData = {
     propertyAddress: "123 Main Street, Anytown, USA 12345",
@@ -91,12 +84,4 @@ export default function SampleAgreementPage() {
             <Footer />
         </div>
     );
-}
-
-// Adding a dynamic title for client components
-export function generateMetadata() {
-  return {
-    title: "Sample Roommate Agreement | Example Contract",
-    description: "View a sample roommate agreement created with our generator. See how a completed contract looks, including clauses for rent, chores, guests, and more.",
-  };
 }
